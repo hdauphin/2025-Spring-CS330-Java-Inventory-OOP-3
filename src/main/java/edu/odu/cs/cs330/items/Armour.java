@@ -1,7 +1,5 @@
 package edu.odu.cs.cs330.items;
 
-import java.util.Objects;
-
 /**
  * This class represents one piece of armour--as found in most video games.
  * This includes boots and helmets.
@@ -39,11 +37,10 @@ public class Armour extends Equippable {
     /**
      * Default to a armour with a defense of zero.
      */
-    public Armour()
+    public Armour()                                                             //DONE
     {
         super();
-
-        // Complete the remainder of this method
+        this.defense = 0;
     }
 
     /**
@@ -67,14 +64,14 @@ public class Armour extends Equippable {
     }
 
     @Override
-    public int requiredNumberOfValues()
+    public int requiredNumberOfValues()                                         //DONE
     {
         // Replace this with the correct value
-        return -1;
+        return 7;
     }
 
     @Override
-    public void fromTokens(String[] tokens)
+    public void fromTokens(String[] tokens)                                     //DONE
     {
         this.setName(tokens[0]);
 
@@ -82,18 +79,28 @@ public class Armour extends Equippable {
         this.setDurability(Integer.parseInt(tokens[2]));
 
         // Complete the remainder of this method
+        this.setDefense(Integer.parseInt(tokens[3]));
+        this.setModifier(tokens[4]);
+        this.setModifierLevel(Integer.parseInt(tokens[5]));
+        this.setElement(tokens[6]);
+
     }
 
     /**
      * Clone--i.e., copy--this Armour.
      */
     @Override
-    public Item clone()
+    public Item clone()                                                         //DONE
     {
         Armour cpy = new Armour();
 
-        // Complete the remainder of this method
-
+        cpy.setName(this.getName());
+        cpy.setDurability(this.getDurability());
+        cpy.setDefense(this.getDefense());
+        cpy.setMaterial(this.getMaterial());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
+        cpy.setElement(this.getElement());
 
         return cpy;
     }
@@ -105,13 +112,24 @@ public class Armour extends Equippable {
      * @param rhs object for which a comparison is desired
      */
     @Override
-    public boolean equals(Object rhs)
+    public boolean equals(Object rhs)                                           //UNFINISHED
     {
         if (!(rhs instanceof Armour)) {
             return false;
         }
 
         Armour rhsItem = (Armour) rhs;
+
+        if (this.getName().equals(rhsItem.getName()) 
+            && this.getMaterial().equals(rhsItem.getMaterial())
+            && this.getModifier().equals(rhsItem.getModifier())
+            && this.getModifierLevel() == rhsItem.getModifierLevel()
+            && this.getElement().equals(rhsItem.getElement())
+            && this.getDefense() == rhsItem.getDefense()) {
+
+
+            return true;
+        }
 
         // Complete the remainder of this method
         return false;
@@ -122,27 +140,34 @@ public class Armour extends Equippable {
      * element, and defense.
      */
     @Override
-    public int hashCode()
+    public int hashCode()                                                       //DONE
     {
-        // This **already completed** function is a hint... use it as a
-        // reference for the other two classes.
-        return Objects.hash(
-            this.getName(),
-            this.getMaterial(),
-            this.getModifier(),
-            this.getModifierLevel(),
-            this.getElement(),
-            this.getDefense()
-        );
+        int hash = this.getName().hashCode();
+        hash += 2*this.getMaterial().hashCode();
+        hash+=4*this.getModifier().hashCode(); 
+        hash+=8*this.getModifierLevel();
+        hash+=32*this.getElement().hashCode(); 
+        hash+=64*this.getDefense(); 
+        return hash;
+
     }
 
     /**
      * *Print* one Armour.
      */
     @Override
-    public String toString()
+    public String toString()                                                    //DONE
     {
-        return "Use FMT_STR, accessors and String.format...";
+        return String.format(
+           FMT_STR,
+           this.getName(), 
+           this.getDurability(),
+           this.getDefense(), 
+           this.getMaterial(),
+           this.getModifier(), 
+           this.getModifierLevel(), 
+           this.getElement()
+        );
     }
 }
 

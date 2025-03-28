@@ -41,11 +41,13 @@ public class Consumable extends Item {
      * Default to a Consumable Item with an empty name, no effect and zero
      * uses.
      */
-    public Consumable()
+    public Consumable()                                                         //DONE
     {
-        super("[Placeholder]");
+        super("");
 
         // Complete the remainder of this method
+        this.effect = "";
+        this.uses=0; 
     }
 
     /**
@@ -95,26 +97,34 @@ public class Consumable extends Item {
     }
 
     @Override
-    public int requiredNumberOfValues()
+    public int requiredNumberOfValues()                                             //DONE
     {
         // Replace this with the correct value
-        return -1;
+        return 3;
     }
 
     @Override
-    public void fromTokens(String[] tokens)
+    public void fromTokens(String[] tokens)                                         //DONE
     {
-
+        super.setName(tokens[0]);
+        effect = tokens[1];
+        uses = Integer.parseInt(tokens[2]);
     }
 
     /**
      * Clone--i.e., copy--this Consumable Item.
      */
     @Override
-    public Item clone()
+    public Item clone()                                                             //DONE
     {
-        // Replace the next line
-        return null;
+        Consumable cpy = new Consumable(); 
+
+        cpy.setName(this.getName());
+        cpy.setEffect(this.getEffect());
+        cpy.setNumberOfUses(this.getNumberOfUses());
+        cpy.setNumberOfUses(this.getNumberOfUses());
+
+        return cpy; 
     }
 
     /**
@@ -123,14 +133,18 @@ public class Consumable extends Item {
      * @param rhs object for which a comparison is desired
      */
     @Override
-    public boolean equals(Object rhs)
+    public boolean equals(Object rhs)                                                //DONE
     {
         if (!(rhs instanceof Consumable)) {
             return false;
         }
 
         // Replace the "return false" with your logic
-        return false;
+        Consumable rhsItem = (Consumable) rhs;
+
+        // Replace the next line
+        return (this.name.equals(rhsItem.name) 
+            && this.effect.equals(rhsItem.effect));
     }
 
     /**
@@ -140,17 +154,22 @@ public class Consumable extends Item {
      * return the result.
      */
     @Override
-    public int hashCode()
+    public int hashCode()                                                           //DONE
     {
-        return -1;
+        return name.hashCode() + effect.hashCode();
     }
 
     /**
      * *Print* the Consumable Item.
      */
     @Override
-    public String toString()
+    public String toString()                                                        //DONE
     {
-        return "Make sure to check Armour.toString for hints.";
+        return String.format(
+            FMT_STR, 
+            this.getName(), 
+            this.getEffect(), 
+            this.getNumberOfUses()
+        );
     }
 }

@@ -38,7 +38,7 @@ public class Tool extends Equippable {
     /**
      * Default to an unstackable tool with zero speed.
      */
-    public Tool()
+    public Tool()                                               //DONE
     {
         super();
 
@@ -66,25 +66,41 @@ public class Tool extends Equippable {
     }
 
     @Override
-    public int requiredNumberOfValues()
+    public int requiredNumberOfValues()                             //DONE
     {
         // Replace this with the correct value
-        return -1;
+        return 6;
     }
 
     @Override
-    public void fromTokens(String[] tokens)
+    public void fromTokens(String[] tokens)                         //DONE
     {
-
+        this.setName(tokens[0]);
+        this.setMaterial(tokens[1]);
+        this.setDurability(Integer.parseInt(tokens[2]));
+        this.setSpeed(Integer.parseInt(tokens[3]));
+        
+        this.setModifier(tokens[4]);
+        this.setModifierLevel(Integer.parseInt(tokens[5]));
     }
 
     /**
      * Clone--i.e., copy--this Tool.
      */
     @Override
-    public Item clone()
+    public Item clone()                                             //DONE
     {
-        return null;
+        Tool cpy = new Tool();
+
+        cpy.setName(this.getName());
+        cpy.setDurability(this.getDurability());
+        cpy.setSpeed(this.getSpeed());
+        cpy.setMaterial(this.getMaterial()); 
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
+        
+
+        return cpy; 
     }
 
     /**
@@ -94,15 +110,24 @@ public class Tool extends Equippable {
      * @param rhs object for which a comparison is desired
      */
     @Override
-    public boolean equals(Object rhs)
+    public boolean equals(Object rhs)                               //DONE
     {
         if (!(rhs instanceof Tool)) {
+            return false;}
+
+            Tool rhsItem = (Tool) rhs;
+
+            if (this.getName().equals(rhsItem.getName())
+                && this.getSpeed() == rhsItem.getSpeed()
+                && this.getMaterial().equals(rhsItem.getMaterial())
+                && this.getModifier().equals(rhsItem.getModifier())
+                && this.getModifierLevel() == rhsItem.getModifierLevel()) {
+
+
+                return true;
+            }
+
             return false;
-        }
-
-        Tool rhsItem = (Tool) rhs;
-
-        return false;
     }
 
     /**
@@ -110,7 +135,7 @@ public class Tool extends Equippable {
      * and modifierLevel.
      */
     @Override
-    public int hashCode()
+    public int hashCode()                                       //DONE
     {
         int hash = this.getName().hashCode();
         hash += 2 * this.getMaterial().hashCode();
@@ -125,7 +150,7 @@ public class Tool extends Equippable {
      * *Print* a Tool.
      */
     @Override
-    public String toString()
+    public String toString()                                    //DONE
     {
         return String.format(
            FMT_STR,
